@@ -4,6 +4,7 @@ from prompt import system_prompt
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from globals import available_functions, schema_get_files_info
 
 # we purposefully named this function as generate_content like the genai.Client method, because we are wrapping it with out own implementation and additional arguments 
 def generate_content(messages, client, verbose):
@@ -12,17 +13,24 @@ def generate_content(messages, client, verbose):
             model="gemini-2.0-flash-001",
             contents=messages,
             # config will hold additional instructions to the model, as we are doing below
-            config=types.GenerateContentConfig(system_instruction=system_prompt)
+            config=types.GenerateContentConfig(
+                tools=[available_functions],
+                system_instruction=system_prompt
+            )
     )
+
     prompt_tokens = response.usage_metadata.prompt_token_count
     response_tokens = response.usage_metadata.candidates_token_count
-
     if verbose:
         print(f"Prompt tokens: {prompt_tokens}")
         print(f"Response tokens: {response_tokens}")
 
-    print("Response:")
-    print(response.text)
+    if len(response.function_calls) > 0:
+        for i in range(len(response.function_calls)):
+            function_call_part = response.function_calls[i]
+            print(f"Calling function: {function_call_part.name}({function_call_part.args})")
+
+    print("Response:\n", response.text)
 
 
 def main():
