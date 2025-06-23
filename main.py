@@ -4,9 +4,9 @@ from prompt import system_prompt
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from globals import available_functions, schema_get_files_info
+from call_function import available_functions, call_function
 
-# we purposefully named this function as generate_content like the genai.Client method, because we are wrapping it with out own implementation and additional arguments 
+# we purposefully named this function as generate_content, exactly like the genai.Client method, because we are wrapping it with out own implementation and additional arguments 
 def generate_content(messages, client, verbose):
 
     response = client.models.generate_content(
@@ -21,17 +21,32 @@ def generate_content(messages, client, verbose):
 
     prompt_tokens = response.usage_metadata.prompt_token_count
     response_tokens = response.usage_metadata.candidates_token_count
+
     if verbose:
         print(f"Prompt tokens: {prompt_tokens}")
         print(f"Response tokens: {response_tokens}")
 
-    if len(response.function_calls) > 0:
-        for i in range(len(response.function_calls)):
-            function_call_part = response.function_calls[i]
-            print(f"Calling function: {function_call_part.name}({function_call_part.args})")
+    if not response.function_calls:
+        # testing print only to see the output of non function call related prompts 
+        print(f"Response: {response.text}")
+        return response.text        
+    
+    function_responses = []
+    for function_call_part in response.function_calls: 
+        function_call_result = call_function(function_call_part, verbose)
+        if(
+                not function_call_result.parts or
+                not function_call_result.parts[0].function_response
+        ):
+            raise Exception("Fatal exception, no content result from call_function() call")
+        if verbose:
+            print(f"->{function_call_result.parts[0].function_response.response}")
+        function_responses.append(function_call_result.parts[0])
 
-    print("Response:\n", response.text)
+    if not function_responses:
+        raise Exception("no function responses generated, exiting.")
 
+    
 
 def main():
 
@@ -57,7 +72,7 @@ def main():
     ]
 
     client = genai.Client(api_key=api_key)
-
+    
     generate_content(messages, client, verbose)
 
 if __name__ == "__main__":
