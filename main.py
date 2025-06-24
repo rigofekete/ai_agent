@@ -52,7 +52,7 @@ def generate_content(messages, client, verbose):
         raise Exception("no function responses generated, exiting.")
 
     # we append the wrapped function_responses list as a types.Content because we had to separate the already returned types.Content object parts from function_call_result into the function_responses list. We do these wrappings to keep everything consistent in order to help the model to provide more accurate outputs 
-    messages.append(types.Content(role="tool", parts=funtion_responses))
+    messages.append(types.Content(role="tool", parts=function_responses))
 
 
 def main():
