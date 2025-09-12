@@ -7,7 +7,6 @@ from google.genai import types
 from call_function import available_functions, call_function
 from globals import MAX_ITERS
 
-# we purposefully named this function as generate_content, exactly like the genai.Client method, because we are wrapping it with out own implementation and additional arguments 
 def generate_content(messages, client, verbose):
 
     response = client.models.generate_content(
