@@ -4,24 +4,24 @@
 
 ---
 
-## 📌 Description
+## Description
 
 This project is an experimental AI-powered assistant that brings **agentic IDE-like features** into a simple Python tool.  
 It uses an LLM with tool calling to:
 
-- 🧩 Parse and summarize project context (files, errors, tests)  
-- 🛠️ Generate targeted patches and refactors  
-- ✅ Run tests and linting to validate changes  
-- 🔁 Iterate until errors are resolved  
+- Parse and summarize project context (files, errors, tests)  
+- Generate targeted patches and refactors  
+- Run tests and linting to validate changes  
+- Iterate until errors are resolved  
 
 It’s inspired by features found in editors like Cursor, Zed, and Claude Code — but implemented from scratch for educational purposes.
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔧 **Modular tool interface** (file read/write, test runner, shell sandbox)  
-- 📐 **Deterministic prompts** and configurable model/provider  
-- 🔌 **Extensible design**: add new tools, swap LLMs, tweak prompts/strategies  
+- **Modular tool interface** (file read/write, test runner, shell sandbox)  
+- **Deterministic prompts** and configurable model/provider  
+- **Extensible design**: add new tools, swap LLMs, tweak prompts/strategies  
 
 
