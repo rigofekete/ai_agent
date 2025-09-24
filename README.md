@@ -1,4 +1,4 @@
-# 🐍 Python AI Code-Fixing Agent
+# Python AI Code-Fixing Agent
 
 **A small, security-conscious AI agent that analyzes Python repositories, detects bugs, and proposes or applies fixes.**
 
@@ -22,14 +22,6 @@ It’s inspired by features found in editors like Cursor, Zed, and Claude Code �
 
 - 🔧 **Modular tool interface** (file read/write, test runner, shell sandbox)  
 - 📐 **Deterministic prompts** and configurable model/provider  
-- 🛡️ **Safety rails**: scoped file access, dry-run mode, reversible changes via Git  
 - 🔌 **Extensible design**: add new tools, swap LLMs, tweak prompts/strategies  
 
----
 
-## 🛠️ Tech Stack
-
-- 🐍 **Python 3.x**  
-- 🤖 **LLM API** (provider-agnostic)  
-- 🌲 **Git** for change tracking  
-- ⚙️ Optional: integration with **pytest**, **ruff**, **black** for testing, linting, and formatting  
