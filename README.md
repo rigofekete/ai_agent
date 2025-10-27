@@ -20,7 +20,7 @@ Itâ€™s inspired by features found in editors like Cursor, Zed, and Claude Code â
 
 ## Features
 
-- **Modular tool interface** (file read/write, test runner, shell sandbox)  
+- **Modular tool interface** (file read/write, test runner)  
 - **Deterministic prompts** and configurable model/provider  
 - **Extensible design**: add new tools, swap LLMs, tweak prompts/strategies  
 
